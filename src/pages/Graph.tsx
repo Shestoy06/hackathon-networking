@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback, useRef} from 'react';
+import React, {useEffect, useState, useCallback, useRef, useContext} from 'react';
 import ForceGraph2D, {ForceGraphMethods, NodeObject} from 'react-force-graph-2d';
 import data from './miserables.json';
 import filterIcon from '@/assets/icons/bars-filter-icon.svg'
@@ -9,8 +9,11 @@ import {Button, Modal, Switch} from "@telegram-apps/telegram-ui";
 import List from "@/pages/List.tsx";
 import {initQRScanner} from "@telegram-apps/sdk-react";
 import toast from "react-hot-toast";
-import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
-import {ModalClose} from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalClose/ModalClose";
+import {User} from "@/utils/interfaces/user.interface.ts";
+import {useOutletContext} from "react-router-dom";
+import UserService from "@/api/services/user.service.ts";
+import {useQueryClient} from "@tanstack/react-query";
+import {QueryKeys} from "@/utils/enums/queryKeys.ts";
 
 const Graph2D = () => {
   const [isListView, setIsListView] = useState(false)
@@ -22,6 +25,8 @@ const Graph2D = () => {
   const forceGraphRef = useRef<ForceGraphMethods | null>(null);
 
   const qrScanner = initQRScanner();
+
+  const user = useOutletContext<User>()
 
   useEffect(() => {
     // @ts-ignore
@@ -100,6 +105,18 @@ const Graph2D = () => {
     return <List data={data.nodes} isListView={isListView} setIsListView={setIsListView}/>
   }
 
+  const getTelegramChatNameFromLink = (url: string): string => {
+    const regexp = /[^/]+$/;
+    return url.match(regexp)![0];
+  };
+
+  const data = {
+    nodes: user.contacts,
+    links: user.links
+  }
+
+  const queryClient = useQueryClient()
+
   return (
     <div>
       <div className="fixed top-0 left-0 z-10 p-4">
@@ -132,7 +149,9 @@ const Graph2D = () => {
                 }
               }).then((qr) => {
                 // May be something like 'https://t.me/heyqbnk' or null.
-                toast.success(qr)
+                if (qr) {
+                  UserService.addContact(user.telegramId, getTelegramChatNameFromLink(qr)).then(r => queryClient.invalidateQueries({queryKey: [QueryKeys.USER]}))
+                }
               });
             }}>Add new contact</Button>
             <Button mode={'bezeled'} stretched={true} className={'mt-4'}>Add new theme</Button>
@@ -206,7 +225,7 @@ const UserModal = ({node, open, setIsOpen}: { node: NodeObject, open: boolean, s
       }}
     >
       <div className="flex flex-col items-center p-4 space-y-4 pb-8">
-        <img className="rounded-full w-32 h-32" src={node.avatar} alt=""/>
+        <img className="rounded-full w-32 h-32" src={node.avatar || 'https://pics.craiyon.com/2023-11-26/oMNPpACzTtO5OVERUZwh3Q.webp'} alt=""/>
         <div className="text-xl font-bold">{node && node.username}</div>
         <div className="opacity-60">{node.description && node.description}</div>
         <Button stretched={true} onClick={() => window.open(`https://t.me/${node.username}`)}>Write a message</Button>
