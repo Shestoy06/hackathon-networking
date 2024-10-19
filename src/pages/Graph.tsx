@@ -9,6 +9,8 @@ import {Button, Modal, Switch} from "@telegram-apps/telegram-ui";
 import List from "@/pages/List.tsx";
 import {initQRScanner} from "@telegram-apps/sdk-react";
 import toast from "react-hot-toast";
+import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
+import {ModalClose} from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalClose/ModalClose";
 
 const Graph2D = () => {
   const [isListView, setIsListView] = useState(false)
@@ -81,7 +83,6 @@ const Graph2D = () => {
   useEffect(() => {
     // @ts-ignore
     if (forceGraphRef && forceGraphRef.current) {
-      console.log('hello')
       // @ts-ignore
       const chargeForce = forceGraphRef.current.d3Force('charge');
 
@@ -117,7 +118,7 @@ const Graph2D = () => {
         <Modal
           className="z-50"
           header={<ModalHeader></ModalHeader>}
-          trigger={<Button>New</Button>}
+          trigger={<Button className='px-6'>Add</Button>}
         >
           <div className={'p-4 pb-8'}>
             <div className={'text-center text-2xl font-semibold mb-4'}>Add something new</div>
@@ -134,7 +135,7 @@ const Graph2D = () => {
                 toast.success(qr)
               });
             }}>Add new contact</Button>
-            <Button mode={'fi'}></Button>
+            <Button mode={'bezeled'} stretched={true} className={'mt-4'}>Add new theme</Button>
           </div>
         </Modal>
       </div>

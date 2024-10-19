@@ -9,8 +9,6 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import WebApp from '@twa-dev/sdk';
 import ForceGraph from "@/pages/Graph.tsx";
 
-
-
 const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
   <div>
     <p>An unhandled error occurred:</p>
@@ -51,6 +49,7 @@ const Inner: FC = () => {
   WebApp.expand();
   WebApp.setHeaderColor("#1E2337");
   WebApp.setBackgroundColor("#1E2337");
+  WebApp.disableVerticalSwipes()
 
   return (
     <TonConnectUIProvider manifestUrl={manifestUrl}>
