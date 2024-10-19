@@ -1,5 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  --tg-theme-text-color: #fff !important;
+  --tg-theme-bg-color: #1E2337 !important;
+  --tgui--divider: #ffffff !important;
+
+  /* modal overlay */
+  .tgui-3197096cb603b35a {
+    backdrop-filter: blur(5px);
+  }
+
+  .tgui-f67c8fb3553eee55::before {
+    background: #fff;
+  }
+}
 body {
-  background: var(--tg-theme-secondary-bg-color, white);
   padding: 0;
   margin: 0;
+  background: #1E2337;
+}
+
+
+.swiper-pagination-bullet {
+  @apply bg-white;
+}
+::-webkit-scrollbar { display: none; }
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+.fade-exit {
+  display: none;
+  opacity: 0;
+  transform: scale(1);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+/* Optional styling */
+.tabs button {
+  padding: 10px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  background-color: #4285f4;
+  color: white;
+}
+
+.fade-item-enter {
+  opacity: 0;
+  transform: translateY(20px); /* Start from slightly below */
+}
+
+.fade-item-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.fade-item-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-item-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.task-enter {
+  opacity: 0;
+  transform: scale(1);
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.tasks {
+  overflow: hidden;
+  transition: height 0.5s ease, opacity 0.5s ease;
+}
+
+.bitget-background {
+  background: rgb(48,254,241);
+  background: linear-gradient(90deg, rgba(48,254,241,1) 0%, rgba(158,146,254,1) 0%, rgba(83,192,251,1) 77%, rgba(48,254,241,1) 100%);
+}
+
+.node-label {
+  background-image: url('https://rezista.in/wp-content/uploads/2020/07/Image-Placeholder-Dark.png');
+  padding: 30px;
+  border-radius: 50%;
+}
+
+.blue-background {
+  background: rgba(0, 152, 234, 0.7);
+}
+
+.blue-gradient-background {
+  background: linear-gradient(to bottom right, rgba(45, 131, 236, 0.5), rgba(26, 201, 255, 0.5));
 }
