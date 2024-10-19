@@ -13,4 +13,14 @@ export interface User {
   friendsTotalCount: number;
   tasks: Task[];
   refBonus: number;
+  contacts: Contact[];
+  links: Contact[];
+}
+
+interface Contact {
+  username: string;
+}
+
+interface Link {
+  username: string;
 }
