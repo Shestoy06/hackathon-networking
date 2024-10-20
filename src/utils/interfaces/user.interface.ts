@@ -14,11 +14,18 @@ export interface User {
   tasks: Task[];
   refBonus: number;
   contacts: Contact[];
-  links: Contact[];
+  links: Link[];
+  themes: Theme[];
+}
+
+export interface Theme {
+  id: string;
+  avatar: string;
+  description: string;
 }
 
 interface Contact {
-  username: string;
+  id: string;
 }
 
 interface Link {

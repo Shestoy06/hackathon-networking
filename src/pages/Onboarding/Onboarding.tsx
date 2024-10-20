@@ -1,4 +1,4 @@
-import {useInitData, useLaunchParams} from "@telegram-apps/sdk-react";
+import {useInitData} from "@telegram-apps/sdk-react";
 import {useQueryClient} from "@tanstack/react-query";
 import UserService from "@/api/services/user.service.ts";
 import {CreateUserDto} from "@/api/dto/createUserDto.dto.ts";
@@ -8,12 +8,10 @@ import {useState} from "react";
 import {User} from "@/utils/interfaces/user.interface.ts";
 
 const Onboarding = () => {
-  const lp = useLaunchParams();
   const initData = useInitData();
   const queryClient = useQueryClient();
 
   const [isUserCreationPending, setIsUserCreationPending] = useState(false)
-  const [user, setUser] = useState<User | null>(null)
 
   const createNewUser = () => {
     if (initData?.user) {
@@ -25,7 +23,6 @@ const Onboarding = () => {
       setIsUserCreationPending(true)
       UserService.createUser(newUser).then(user => {
         setIsUserCreationPending(false)
-        setUser(user)
         setUserInContext(user)
       })
     }

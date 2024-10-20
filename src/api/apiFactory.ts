@@ -1,5 +1,3 @@
-import {UserFromApi} from "@/api/interfaces/userFromApi.interface.ts";
-import {User} from "@/utils/interfaces/user.interface.ts";
 import {TaskFromApi} from "@/api/interfaces/taskFromApi.interface.ts";
 import Task, {
   BaseTask,
@@ -20,14 +18,6 @@ import {UserFriendFromApi} from "@/api/interfaces/userFriendFromApi.inetrface.ts
 import {UserFriend} from "@/utils/interfaces/userFriend.interface.ts";
 
 class ApiFactory {
-
-  transformUser(userFromApi: UserFromApi): User {
-    return {
-      ...userFromApi,
-      friends: this.transformUserFriends(userFromApi.friends),
-      tasks: this.transformTasks(userFromApi.taskRefs)
-    }
-  }
 
   transformTasks(tasksFromApi: TaskFromApi[]): Task[] {
     const tasks: Task[] = [];

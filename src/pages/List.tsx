@@ -27,14 +27,14 @@ const List = ({data, isListView, setIsListView} : {data: NodeBody[], isListView:
       <div className="space-y-2 mt-4 pb-16">
         {data.map(node => (
           <div className="flex items-center p-2 border-white border-opacity-5 border-2 rounded-xl" key={node.id}>
-            <img src={node.avatar} className="h-12 w-12 rounded-full" alt=""/>
+            <img src={node.avatar || 'https://pics.craiyon.com/2023-11-26/oMNPpACzTtO5OVERUZwh3Q.webp'} className="h-12 w-12 rounded-full" alt=""/>
             <div className='h-full ml-2'>
-              <div>{node.username}</div>
+              <div>{node.id}</div>
                 {node.tags && node.tags.map(tag => <span className={`px-1 -py-2 text-xs text-black bg-[#ffff00] rounded-xl`} key={tag.title}>{tag.title}</span>)}
             </div>
             <div className="ml-2">
             </div>
-            <img src={telegramIcon} className="w-8 h-8 ml-auto" alt=""/>
+            <img src={telegramIcon} onClick={() => window.open(`https://t.me/${node.id}`)} className="w-8 h-8 ml-auto" alt=""/>
           </div>
         ))}
       </div>

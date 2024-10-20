@@ -24,7 +24,7 @@ export const App: FC = () => {
       if (statusCode === 404) {
         return <Onboarding/>
       } else {
-        return <SplashScreenServerOverload/>
+        /*return <SplashScreenServerOverload/>*/
       }
     }
   }
