@@ -124,7 +124,9 @@ const List = ({ data, isListView, setIsListView }: { data: NodeBody[], isListVie
                 </span>
               ))}
             </div>
-            <img src={telegramIcon} className="w-8 h-8 ml-auto" alt="" />
+            <div className="ml-2">
+            </div>
+            <img src={telegramIcon} onClick={() => window.open(`https://t.me/${node.id}`)} className="w-8 h-8 ml-auto" alt=""/>
           </div>
         ))}
       </div>

@@ -20,8 +20,10 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = (
 ) => {
 
   const [step, setStep] = useState(1);
+  // @ts-ignore
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false)
+  // @ts-ignore
   const [buttonText, setButtonText] = useState(ButtonText.CONTINUE)
 
   useEffect(() => {
@@ -71,17 +73,6 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = (
               {step === 3 && <p>Awarding your Bonus for joining Rats Kingdom...</p>}
               {step === 4 && <p>Completed</p>}
             </div>
-          </div>
-        )}
-
-        {progress === 2 && (
-          <div>
-            <h1 className="text-3xl font-bold mb-4 text-white">
-              {tokens} RATS</h1>
-            <p className="font-medium">
-              You&apos;ve earned {tokens} RATS for joining us! <br/> Earn more RATS by completing tasks and
-              referring friends.
-            </p>
           </div>
         )}
       </div>

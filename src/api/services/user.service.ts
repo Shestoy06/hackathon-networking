@@ -1,7 +1,7 @@
 import axiosInstance from "@/api/interceptors.ts";
 import {ObjectId} from "@/utils/types/objectId.type.ts";
 import {CreateUserDto} from "@/api/dto/createUserDto.dto.ts";
-import {User} from "@/utils/interfaces/user.interface.ts";
+import {Theme, User} from "@/utils/interfaces/user.interface.ts";
 import apiFactory from "@/api/apiFactory.ts";
 import {ClaimTaskApiResponse, ClaimTaskResponse} from "@/api/interfaces/claimTaskResponse.interface.ts";
 import {GetLeaderboardResponse} from "@/api/interfaces/getLeaderboardResponse.interface.ts";
@@ -23,7 +23,23 @@ class UserService {
 
   async addContact(id: number, contactUsername: string): Promise<User> {
     return axiosInstance.post(this.BASE_URL + `/${id}/addContact`, {
-      username: contactUsername
+      id: contactUsername
+    })
+      .then(res => res.data)
+  }
+
+  async addLink(id: number, source: string, target: string): Promise<User> {
+    return axiosInstance.post(this.BASE_URL + `/${id}/addLink`, {
+      source,
+      target
+    })
+      .then(res => res.data)
+  }
+
+  async addTheme(id: number, theme: Theme): Promise<User> {
+    console.log(theme)
+    return axiosInstance.post(this.BASE_URL + `/${id}/addTheme`, {
+      ...theme
     })
       .then(res => res.data)
   }
