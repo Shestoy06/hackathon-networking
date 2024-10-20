@@ -1,17 +1,11 @@
-import React, {useEffect, useState, useCallback, useRef} from 'react';
+import {useEffect, useState, useCallback, useRef} from 'react';
 import ForceGraph2D, {ForceGraphMethods, NodeObject} from 'react-force-graph-2d';
-import data from './miserables.json';
 import filterIcon from '@/assets/icons/bars-filter-icon.svg';
 import batIcon from '@/assets/icons/bat.svg'; // Add your bat icon path here
 import { ModalHeader } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
-import { Button, Modal, Switch } from "@telegram-apps/telegram-ui";
-import {
-  ModalHeader
-} from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
 import {Button, Input, Modal, Select, Switch} from "@telegram-apps/telegram-ui";
 import List from "@/pages/List.tsx";
 import { initQRScanner } from "@telegram-apps/sdk-react";
-import toast from "react-hot-toast";
 import {User} from "@/utils/interfaces/user.interface.ts";
 import {useOutletContext} from "react-router-dom";
 import UserService from "@/api/services/user.service.ts";
@@ -33,6 +27,7 @@ const Graph2D = () => {
   const user = useOutletContext<User>()
 
   useEffect(() => {
+    // @ts-ignore
     const loadImage = (url) => {
       return new Promise((resolve) => {
         const img = new Image();
@@ -46,6 +41,7 @@ const Graph2D = () => {
       for (const node of data.nodes) {
         // @ts-ignore
         const avatarUrl = node.avatar || 'https://pics.craiyon.com/2023-11-26/oMNPpACzTtO5OVERUZwh3Q.webp';
+        // @ts-ignore
         cache[node.id] = await loadImage(avatarUrl);
       }
       setImageCache(cache);
@@ -58,7 +54,7 @@ const Graph2D = () => {
     const imgSize = node.size || 10;
     const fontSize = Math.min(3, 12 * globalScale / 4);
     const textOpacity = Math.min(globalScale / 4, 0.9);
-
+    // @ts-ignore
     const img = imageCache[node.id];
 
     if (img) {
@@ -111,6 +107,7 @@ const Graph2D = () => {
   const queryClient = useQueryClient()
 
   return (
+    // @ts-ignore
     <div style={{ backgroundColor: isHalloweenTheme ? 'black' : '#1d2134', minHeight: '100vh', color: isHalloweenTheme && 'white' }}>
       <div className="fixed top-0 left-0 z-10 p-4">
         <Modal
@@ -122,11 +119,16 @@ const Graph2D = () => {
               <img src={filterIcon} className='h-6 w-6' alt="" />
             </div>}
         >
-          <div className={'text-center text-2xl font-semibold mb-4'}>Filters</div>
-          <div className="flex flex-col items-center">
-            <Button onClick={() => setSelectedTheme('Hackathon')}>Hackathon</Button>
-            <Button onClick={() => setSelectedTheme('Hackathon 2')}>Hackathon 2</Button>
-            <Button onClick={() => setSelectedTheme(null)}>Reset</Button>
+          <div className={'text-center text-2xl font-semibold mb-4'}>Filter by theme</div>
+          <div className="flex flex-col items-center space-y-2 p-4">
+            <div className="mb-4 w-full space-y-2">
+              {user.themes.map(theme => {
+                // @ts-ignore
+                // eslint-disable-next-line react/jsx-key
+                return <Button stretched={true} onClick={() => setSelectedTheme(theme.id)}>{theme.id}</Button>
+              })}
+            </div>
+            <Button className="mt-4" mode={'bezeled'} stretched={true} onClick={() => setSelectedTheme(null)}>Reset</Button>
           </div>
         </Modal>
       </div>
@@ -160,19 +162,23 @@ const Graph2D = () => {
         </Modal>
       </div>
 
-      <div className="fixed top-4 right-4 z-10 rounded-xl p-2 flex items-center backdrop-blur">
-        <Switch checked={isListView} onClick={() => setIsListView(!isListView)}>List</Switch>
-        <div className={`${isListView ? 'opacity-100' : 'opacity-60'} ml-4`}>List view</div>
+      <div className="fixed top-4 right-4 z-10 rounded-xl p-2 flex flex-col items-center backdrop-blur">
+        <div className='flex'>
+          <Switch checked={isListView} onClick={() => setIsListView(!isListView)}>List</Switch>
+          <span className={`${isListView ? 'opacity-100' : 'opacity-60'} ml-4 mt-[1.5px]`}>List view</span>
+        </div>
+
         <Button 
-          className="ml-4" 
+          className="ml-4 self-end"
           onClick={() => setIsHalloweenTheme(!isHalloweenTheme)} 
           style={{ backgroundColor: isHalloweenTheme ? 'orange' : 'inherit' }} // Change button color
         >
-          <img src={isHalloweenTheme ? batIcon : batIcon} className='h-6 w-6' alt="Toggle Halloween Theme" /> {/* Change icon */}
+          <img src={batIcon} className='h-6 w-6' alt="Toggle Halloween Theme" /> {/* Change icon */}
         </Button>
       </div>
 
       <ForceGraph2D
+        // @ts-ignore
         ref={forceGraphRef}
         graphData={data}
         nodeAutoColorBy="group"
@@ -183,6 +189,7 @@ const Graph2D = () => {
           const imgSize = 10;
           ctx.fillStyle = color;
           ctx.beginPath();
+          // @ts-ignore
           ctx.arc(node.x, node.y, imgSize / 2, 0, 2 * Math.PI, false);
           ctx.fill();
         }}
@@ -192,11 +199,14 @@ const Graph2D = () => {
         }}
         warmupTicks={50}
         linkCanvasObject={(link, ctx) => {
+          // @ts-ignore
           const isSelected = selectedTheme && (link.source.id === selectedTheme || link.target.id === selectedTheme);
           ctx.strokeStyle = isHalloweenTheme ? 'red' : (isSelected ? '#0098EA' : '#D3D3D3'); // Change link color
           ctx.lineWidth = 1;
           ctx.beginPath();
+          // @ts-ignore
           ctx.moveTo(link.source.x, link.source.y);
+          // @ts-ignore
           ctx.lineTo(link.target.x, link.target.y);
           ctx.stroke();
         }}
@@ -235,7 +245,7 @@ const UserModal = ({node, open, setIsOpen}: { node: NodeObject, open: boolean, s
             return (<option key={theme.id}>{theme.id}</option>)
           })}
         </Select>
-        <Button stretched={true} onClick={() => window.open(`https://t.me/${node.username}`)}>Write a message</Button>
+        <Button stretched={true} onClick={() => window.open(`https://t.me/${node.id}`)}>Write a message</Button>
       </div>
     </Modal>
   );

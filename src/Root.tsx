@@ -8,6 +8,7 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import WebApp from '@twa-dev/sdk';
 import ForceGraph from "@/pages/Graph.tsx";
+import Profile from "@/pages/Profile.tsx";
 
 const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
   <div>
@@ -41,6 +42,10 @@ const Inner: FC = () => {
         {
           index: true,
           element: <ForceGraph/>,
+        },
+        {
+          path: '/profile',
+          element: <Profile/>,
         },
       ],
     },

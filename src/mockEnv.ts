@@ -23,7 +23,7 @@ if (import.meta.env.DEV) {
   if (shouldMock) {
     const initDataRaw = new URLSearchParams([
       ['user', JSON.stringify({
-        id: 99281913,
+        id: 499053331,
         first_name: 'Andrew',
         last_name: 'Rogue',
         username: 'rogue',

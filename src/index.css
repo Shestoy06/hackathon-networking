@@ -21,6 +21,10 @@ body {
   background: #1E2337;
 }
 
+.tgui-8ca550c2fc85eff5 {
+  padding: 20px 0 0 !important;
+}
+
 
 .swiper-pagination-bullet {
   @apply bg-white;
