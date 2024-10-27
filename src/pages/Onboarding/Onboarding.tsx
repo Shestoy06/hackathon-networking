@@ -21,9 +21,26 @@ const Onboarding = () => {
       )
 
       setIsUserCreationPending(true)
-      UserService.createUser(newUser).then(user => {
+      UserService.createUser(newUser).then(async user => {
+        await UserService.addContact(user.telegramId, 'shestaya_liniya')
+        await UserService.addContact(user.telegramId, 'skywl_k')
+        await UserService.addContact(user.telegramId, 'PiraJoke')
+        await UserService.addLink(user.telegramId, 'Hackathon','PiraJoke')
+        await UserService.addLink(user.telegramId, 'Hackathon','skywl_k')
+        await UserService.addLink(user.telegramId, 'Hackathon','shestaya_liniya')
+        await UserService.addTheme(
+          user.telegramId,
+          {
+            id: 'Hackathon',
+            avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_s4hzT31Pte691BvjmzSisxWjjRGLuGPG_g&s',
+            description: ''
+          })
+        queryClient.invalidateQueries({queryKey: [QueryKeys.USER]}).then(() => {
+          setUserInContext(user)
+          window.location.reload()
+        })
         setIsUserCreationPending(false)
-        setUserInContext(user)
+
       })
     }
   }

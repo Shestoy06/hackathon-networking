@@ -71,16 +71,6 @@ const List = ({ data, isListView, setIsListView }: { data: NodeBody[], isListVie
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <div className="flex">
-            <Button
-              className={`px-4 py-2 mr-2 ${isHalloweenTheme && filter === 'lastAdded' ? 'bg-orange-500 text-white' : 'bg-gray-500 text-white'} rounded-md`}
-              onClick={() => {
-                setFilter('lastAdded');
-                setSelectedTag(null);
-              }}
-            >
-              Last Added
-            </Button>
-
           <div className="flex-1">
             <Select
               style={{
@@ -107,6 +97,15 @@ const List = ({ data, isListView, setIsListView }: { data: NodeBody[], isListVie
 
 
         </div>
+        <Button
+          className={`px-4 py-2 mr-2 ${isHalloweenTheme && filter === 'lastAdded' ? 'bg-orange-500 text-white' : 'bg-gray-500 text-white'} rounded-md`}
+          onClick={() => {
+            setFilter('lastAdded');
+            setSelectedTag(null);
+          }}
+        >
+          Filter by latest
+        </Button>
 
       </div>
       

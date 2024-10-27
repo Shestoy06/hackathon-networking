@@ -7,8 +7,8 @@ import {AppRoot} from "@telegram-apps/telegram-ui";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import WebApp from '@twa-dev/sdk';
-import ForceGraph from "@/pages/Graph.tsx";
-import Profile from "@/pages/Profile.tsx";
+import DemoGraph from "@/pages/DemoGraph.tsx";
+import Graph2D from "@/pages/Graph.tsx";
 
 const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
   <div>
@@ -41,11 +41,11 @@ const Inner: FC = () => {
       children: [
         {
           index: true,
-          element: <ForceGraph/>,
+          element: <Graph2D/>,
         },
         {
-          path: '/profile',
-          element: <Profile/>,
+          path: '/demo-graph',
+          element: <DemoGraph/>,
         },
       ],
     },

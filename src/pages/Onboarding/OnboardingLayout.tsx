@@ -79,6 +79,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = (
 
       <div className="min-h-10">
         <Button
+          loading={isUserCreationPending}
           stretched={true}
           onClick={handleContinue}
           disabled={isUserCreationPending || isLoading}

@@ -8,6 +8,7 @@ const BottomNav = () => {
   return (
     <div className="fixed bottom-0 flex items-center w-full h-16 p-4 pb-6 justify-between backdrop-blur border-t-2 border-opacity-5 border-white">
       <CustomNavLink route={Routes.GRAPH} icon={graphIcon}/>
+      <CustomNavLink route={Routes.DEMO_GRAPH} icon={graphIcon}/>
     </div>
   );
 };

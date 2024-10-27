@@ -1,4 +1,4 @@
 export enum Routes {
   GRAPH = '/',
-  PROFILE = 'profile',
+  DEMO_GRAPH = 'demo-graph',
 }
